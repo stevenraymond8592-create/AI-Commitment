@@ -81,7 +81,7 @@ const App: React.FC = () => {
       </div>
 
       {/* Header */}
-      <nav className="fixed top-0 left-0 right-0 z-50 p-8 flex justify-between items-center">
+      <nav className="fixed top-0 left-0 right-0 z-50 p-8 flex justify-between items-center bg-gradient-to-b from-black/50 to-transparent">
         <div className="flex items-center gap-3">
           <div className={`p-2 rounded-xl bg-gradient-to-br ${current.color} transition-all duration-700`}>
             <Target className="w-6 h-6 text-white" />
@@ -98,6 +98,35 @@ const App: React.FC = () => {
           </div>
         </div>
       </nav>
+
+      {/* Side Navigation Arrows (NIKE STYLE) */}
+      <div className="fixed inset-y-0 left-0 w-24 z-[60] flex items-center justify-center pointer-events-none">
+        <button 
+          onClick={() => rotateTo(activeIndex - 1)}
+          disabled={activeIndex === 0}
+          className={`
+            w-16 h-16 rounded-full border border-white/10 flex items-center justify-center pointer-events-auto transition-all duration-500
+            ${activeIndex === 0 ? 'opacity-0 scale-50 pointer-events-none' : 'bg-black/20 backdrop-blur-xl hover:bg-white hover:text-black hover:-translate-x-2 active:scale-90'}
+          `}
+          aria-label="Previous commitment"
+        >
+          <ChevronLeft className="w-8 h-8" />
+        </button>
+      </div>
+
+      <div className="fixed inset-y-0 right-0 w-24 z-[60] flex items-center justify-center pointer-events-none">
+        <button 
+          onClick={() => rotateTo(activeIndex + 1)}
+          disabled={activeIndex === COMMITMENTS.length - 1}
+          className={`
+            w-16 h-16 rounded-full border border-white/10 flex items-center justify-center pointer-events-auto transition-all duration-500
+            ${activeIndex === COMMITMENTS.length - 1 ? 'opacity-0 scale-50 pointer-events-none' : 'bg-black/20 backdrop-blur-xl hover:bg-white hover:text-black hover:translate-x-2 active:scale-90'}
+          `}
+          aria-label="Next commitment"
+        >
+          <ChevronRight className="w-8 h-8" />
+        </button>
+      </div>
 
       {/* Main Showcase Container */}
       <main className="relative z-10 h-screen w-full flex flex-col md:flex-row items-center justify-center px-6 md:px-24 pt-16">
@@ -198,30 +227,11 @@ const App: React.FC = () => {
         </div>
       </main>
 
-      {/* Navigation Footer */}
+      {/* Navigation Footer (CLEANED UP) */}
       <footer className="fixed bottom-0 left-0 right-0 p-8 md:p-12 z-50 flex items-center justify-between bg-gradient-to-t from-black/80 to-transparent pointer-events-none">
-        <div className="flex gap-4 pointer-events-auto">
-          <button 
-            onClick={() => rotateTo(activeIndex - 1)}
-            disabled={activeIndex === 0}
-            className={`w-14 h-14 rounded-full border border-white/10 flex items-center justify-center transition-all ${activeIndex === 0 ? 'opacity-10 cursor-not-allowed' : 'hover:bg-white/10 hover:border-white/30 active:scale-90'}`}
-            aria-label="Previous commitment"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          <button 
-            onClick={() => rotateTo(activeIndex + 1)}
-            disabled={activeIndex === COMMITMENTS.length - 1}
-            className={`w-14 h-14 rounded-full border border-white/10 flex items-center justify-center transition-all ${activeIndex === COMMITMENTS.length - 1 ? 'opacity-10 cursor-not-allowed' : 'hover:bg-white/10 hover:border-white/30 active:scale-90'}`}
-            aria-label="Next commitment"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
-        </div>
-
-        <div className="flex items-center gap-12 pointer-events-auto">
+        <div className="flex items-center gap-12 w-full justify-between pointer-events-auto">
           <div className="hidden lg:flex items-center gap-2">
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20 mr-4">Timeline</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/20 mr-4">Timeline Navigation</span>
             {COMMITMENTS.map((_, i) => (
               <button 
                 key={i} 
@@ -231,10 +241,10 @@ const App: React.FC = () => {
             ))}
           </div>
           <div className="text-right">
-            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-white/30 block mb-1">Status</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.5em] text-white/30 block mb-1">Current Protocol</span>
             <span className="text-xs font-bold flex items-center gap-2 justify-end">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
-              VISION ACTIVE
+              INTERVENTION ACTIVE
             </span>
           </div>
         </div>
